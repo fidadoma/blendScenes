@@ -1,0 +1,332 @@
+---
+title: "blendScenes Results Report"
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    code-fold: true
+    theme: cosmo
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+```{r}
+library(jsonlite)
+library(ggplot2)
+library(knitr)
+library(readxl)
+
+results_path <- "../data/formr_downloads/blendScenes_prolific_A/results.json"
+blends_path <- "../data/Blends.xlsx"
+images_dir <- "report_images"
+
+results_raw <- fromJSON(results_path)
+blends_raw <- read_excel(blends_path)
+
+trial_cols <- grep("^slider_[0-9]+$", names(results_raw), value = TRUE)
+catch_cols <- grep("^slider_catch[0-9]+$", names(results_raw), value = TRUE)
+
+trial_ids <- as.integer(sub("^slider_", "", trial_cols))
+trial_matrix <- as.data.frame(results_raw[trial_cols], check.names = FALSE)
+trial_matrix[] <- lapply(trial_matrix, as.numeric)
+
+catch_matrix <- as.data.frame(results_raw[catch_cols], check.names = FALSE)
+catch_matrix[] <- lapply(catch_matrix, as.numeric)
+
+long_trials <- do.call(
+  rbind,
+  lapply(seq_along(trial_cols), function(i) {
+    data.frame(
+      session_id = results_raw$session_id,
+      iteration = results_raw$iteration,
+      prolific_code = results_raw$prolific_code,
+      trial_id = trial_ids[i],
+      rating = trial_matrix[[i]]
+    )
+  })
+)
+
+long_trials <- long_trials[!is.na(long_trials$rating), ]
+long_trials <- long_trials[order(long_trials$trial_id, long_trials$session_id), ]
+rownames(long_trials) <- NULL
+
+observed_trial_summary <- do.call(
+  rbind,
+  lapply(split(long_trials$rating, long_trials$trial_id), function(x) {
+    data.frame(
+      n = length(x),
+      mean = mean(x),
+      sd = sd(x),
+      median = median(x),
+      min = min(x),
+      max = max(x)
+    )
+  })
+)
+
+observed_trial_summary$trial_id <- as.integer(rownames(observed_trial_summary))
+rownames(observed_trial_summary) <- NULL
+
+blend_lookup <- data.frame(
+  trial_id = as.integer(blends_raw$id_blendu),
+  category1 = as.character(blends_raw$category1),
+  category2 = as.character(blends_raw$category2),
+  category_pair = paste0(blends_raw$category1, "-", blends_raw$category2),
+  img_name1 = as.character(blends_raw$img_name1),
+  img_name2 = as.character(blends_raw$img_name2),
+  blend_name = as.character(blends_raw$blend_name)
+)
+
+observed_trial_summary$image_file <- file.path(images_dir, paste0(observed_trial_summary$trial_id, "_kolaz.png"))
+observed_trial_summary <- merge(observed_trial_summary, blend_lookup, by = "trial_id", all.x = TRUE, sort = TRUE)
+observed_trial_summary <- observed_trial_summary[, c("trial_id", "blend_name", "category1", "category2", "category_pair", "img_name1", "img_name2", "n", "mean", "sd", "median", "min", "max", "image_file")]
+
+icc_2way_random_absolute <- function(mat) {
+  mat <- as.matrix(mat)
+  storage.mode(mat) <- "double"
+  if (anyNA(mat)) {
+    keep_cols <- colSums(is.na(mat)) == 0
+    mat <- mat[, keep_cols, drop = FALSE]
+  }
+  if (anyNA(mat)) {
+    keep_rows <- rowSums(is.na(mat)) == 0
+    mat <- mat[keep_rows, , drop = FALSE]
+  }
+  n <- nrow(mat)
+  k <- ncol(mat)
+  if (n < 2 || k < 2) {
+    return(list(icc21 = NA_real_, icc2k = NA_real_, n_targets = n, n_raters = k))
+  }
+
+  grand_mean <- mean(mat)
+  row_means <- rowMeans(mat)
+  col_means <- colMeans(mat)
+
+  ss_rows <- k * sum((row_means - grand_mean) ^ 2)
+  ss_cols <- n * sum((col_means - grand_mean) ^ 2)
+  ss_total <- sum((mat - grand_mean) ^ 2)
+  ss_error <- ss_total - ss_rows - ss_cols
+
+  ms_rows <- ss_rows / (n - 1)
+  ms_cols <- ss_cols / (k - 1)
+  ms_error <- ss_error / ((n - 1) * (k - 1))
+
+  icc21 <- (ms_rows - ms_error) / (ms_rows + (k - 1) * ms_error + (k * (ms_cols - ms_error) / n))
+  icc2k <- (ms_rows - ms_error) / (ms_rows + ((ms_cols - ms_error) / n))
+
+  list(icc21 = icc21, icc2k = icc2k, n_targets = n, n_raters = k)
+}
+
+icc_input <- t(as.matrix(trial_matrix))
+icc_stats <- icc_2way_random_absolute(icc_input)
+
+category_pair_sd <- aggregate(
+  cbind(sd, mean) ~ category_pair,
+  data = observed_trial_summary,
+  FUN = function(x) c(
+    mean = mean(x, na.rm = TRUE),
+    median = median(x, na.rm = TRUE),
+    min = min(x, na.rm = TRUE),
+    max = max(x, na.rm = TRUE)
+  )
+)
+
+category_pair_sd <- data.frame(
+  category_pair = category_pair_sd$category_pair,
+  sd_mean = category_pair_sd$sd[, "mean"],
+  sd_median = category_pair_sd$sd[, "median"],
+  sd_min = category_pair_sd$sd[, "min"],
+  sd_max = category_pair_sd$sd[, "max"],
+  mean_rating_mean = category_pair_sd$mean[, "mean"],
+  mean_rating_median = category_pair_sd$mean[, "median"],
+  row.names = NULL
+)
+
+catch_expectations <- c(slider_catch1 = "left", slider_catch2 = "right", slider_catch3 = "left", slider_catch4 = "right")
+catch_scores <- catch_matrix
+catch_scores$session_id <- results_raw$session_id
+catch_scores$iteration <- results_raw$iteration
+catch_scores$prolific_code <- results_raw$prolific_code
+
+score_catches <- function(threshold) {
+  correct <- cbind(
+    catch_matrix$slider_catch1 <= threshold,
+    catch_matrix$slider_catch2 >= (101 - threshold),
+    catch_matrix$slider_catch3 <= threshold,
+    catch_matrix$slider_catch4 >= (101 - threshold)
+  )
+  rowSums(correct, na.rm = TRUE)
+}
+
+thresholds <- c(1, 3, 5, 10, 15, 20)
+catch_threshold_table <- do.call(
+  rbind,
+  lapply(thresholds, function(threshold) {
+    scores <- score_catches(threshold)
+    data.frame(
+      threshold = threshold,
+      pass_rule = paste0("4/4 within ", threshold, " points of the correct end"),
+      n_pass = sum(scores == 4, na.rm = TRUE),
+      n_fail = sum(scores < 4, na.rm = TRUE)
+    )
+  })
+)
+
+catch_participant_table <- data.frame(
+  session_id = results_raw$session_id,
+  iteration = results_raw$iteration,
+  prolific_code = results_raw$prolific_code,
+  slider_catch1 = catch_matrix$slider_catch1,
+  slider_catch2 = catch_matrix$slider_catch2,
+  slider_catch3 = catch_matrix$slider_catch3,
+  slider_catch4 = catch_matrix$slider_catch4,
+  correct_within_10 = score_catches(10),
+  correct_within_5 = score_catches(5)
+)
+
+overall_summary <- data.frame(
+  metric = c(
+    "Participants in export",
+    "Participants with complete catch data",
+    "Observed rated trials in this export",
+    "Unique blend images in this export",
+    "Ratings per observed trial",
+    "Overall mean rating",
+    "ICC(2,1) across observed trials",
+    "ICC(2,k) across observed trials"
+  ),
+  value = c(
+    nrow(results_raw),
+    sum(stats::complete.cases(catch_matrix)),
+    length(trial_cols),
+    nrow(observed_trial_summary),
+    if (length(unique(observed_trial_summary$n)) == 1) unique(observed_trial_summary$n) else paste(range(observed_trial_summary$n), collapse = "-"),
+    round(mean(long_trials$rating), 2),
+    round(icc_stats$icc21, 3),
+    round(icc_stats$icc2k, 3)
+  )
+)
+```
+
+## Overview
+
+This report reads [results.json](`r results_path`) and summarizes the `blendScenes_prolific_A` export. This export contains ratings for 50 trials: `1, 5, 9, ..., 197`. Metadata are joined from [Blends.xlsx](`r blends_path`) using `id_blendu`, which matches the collage numbering used in the local `images/` folder.
+
+```{r}
+kable(overall_summary, col.names = c("Metric", "Value"))
+```
+
+The ICC shown here is an overall reliability estimate across the observed trials, treating participants as raters and trials as targets. A separate ICC for each individual trial is not identifiable from this design, because ICC needs variation across multiple targets rather than a single item. For each trial subsection below, the practical item-level summaries are the mean, SD, median, and histogram.
+
+## SD by Category Pair
+
+Because trial-specific ICC is not estimable from a single image, the summary figure below uses the per-image rating SD and aggregates it by category pair. Lower SD means participants were more tightly clustered for that type of blend.
+
+```{r}
+category_pair_sd_table <- category_pair_sd
+category_pair_sd_table$sd_mean <- round(category_pair_sd_table$sd_mean, 2)
+category_pair_sd_table$sd_median <- round(category_pair_sd_table$sd_median, 2)
+category_pair_sd_table$sd_min <- round(category_pair_sd_table$sd_min, 2)
+category_pair_sd_table$sd_max <- round(category_pair_sd_table$sd_max, 2)
+category_pair_sd_table$mean_rating_mean <- round(category_pair_sd_table$mean_rating_mean, 2)
+category_pair_sd_table$mean_rating_median <- round(category_pair_sd_table$mean_rating_median, 2)
+kable(category_pair_sd_table, col.names = c("Category Pair", "Mean SD", "Median SD", "Min SD", "Max SD", "Mean Rating", "Median Rating"))
+```
+
+```{r, fig.width=8, fig.height=4.5}
+ggplot(category_pair_sd, aes(x = reorder(category_pair, sd_mean), y = sd_mean, fill = category_pair)) +
+  geom_col(width = 0.7, show.legend = FALSE) +
+  geom_text(aes(label = sprintf("%.2f", sd_mean)), hjust = -0.1, size = 3.5) +
+  coord_flip() +
+  expand_limits(y = max(category_pair_sd$sd_mean, na.rm = TRUE) + 2) +
+  labs(
+    x = "Category pair",
+    y = "Mean within-image SD",
+    title = "Rating dispersion by category pair"
+  ) +
+  theme_minimal(base_size = 11)
+```
+
+## Catch Trials
+
+The four catch trials appear to have the intended answers at the scale endpoints:
+
+- `slider_catch1`: left end
+- `slider_catch2`: right end
+- `slider_catch3`: left end
+- `slider_catch4`: right end
+
+The table below shows how many participants would pass if you require all four catch trials to be within a given distance from the correct endpoint.
+
+```{r}
+kable(catch_threshold_table, col.names = c("Threshold", "Rule", "Pass", "Fail"))
+```
+
+Suggested cutoffs:
+
+- Strict default: require all `4/4` catch trials within `10` points of the correct endpoint, and exclude participants with missing catch responses.
+- Moderate alternative: require all `4/4` within `15` or `20` points if you want to allow slight slider imprecision near the endpoints.
+- I would avoid a lenient `3/4` rule here unless you have a strong reason, because the study instructions explicitly told participants to choose the correct end of the scale.
+
+```{r}
+kable(catch_participant_table)
+```
+
+## Trial Summary
+
+```{r}
+trial_summary_table <- observed_trial_summary[, c("trial_id", "blend_name", "category_pair", "n", "mean", "sd", "median", "min", "max")]
+trial_summary_table$mean <- round(trial_summary_table$mean, 2)
+trial_summary_table$sd <- round(trial_summary_table$sd, 2)
+trial_summary_table$median <- round(trial_summary_table$median, 2)
+kable(trial_summary_table)
+```
+
+## Image Browser
+
+```{r, results='asis', fig.width=7, fig.height=4}
+for (trial in observed_trial_summary$trial_id) {
+  trial_info <- observed_trial_summary[observed_trial_summary$trial_id == trial, ][1, ]
+  image_path <- file.path(images_dir, paste0(trial, "_kolaz.png"))
+
+  cat("\n\n### Trial ", trial, " (", trial_info$blend_name, ")\n\n", sep = "")
+  cat("<p><img src=\"", image_path, "\" alt=\"Trial image\" style=\"width:70%;\" /></p>\n\n", sep = "")
+
+  trial_ratings <- long_trials$rating[long_trials$trial_id == trial]
+  cat(
+    "**Category pair** = ", trial_info$category_pair,
+    "; **category1** = ", trial_info$category1,
+    "; **category2** = ", trial_info$category2,
+    "\n\n",
+    sep = ""
+  )
+  cat(
+    "**Source images** = `", trial_info$img_name1, "` and `", trial_info$img_name2, "`\n\n",
+    sep = ""
+  )
+
+  stats_line <- paste0(
+    "**n** = ", length(trial_ratings),
+    "; **mean** = ", round(mean(trial_ratings), 2),
+    "; **sd** = ", round(stats::sd(trial_ratings), 2),
+    "; **median** = ", round(stats::median(trial_ratings), 2),
+    "; **range** = ", min(trial_ratings), "-", max(trial_ratings)
+  )
+  cat(stats_line, "\n\n")
+
+  plot_df <- data.frame(rating = trial_ratings)
+  p <- ggplot(plot_df, aes(x = rating)) +
+    geom_histogram(binwidth = 5, boundary = 0, fill = "#3b6fb6", color = "white") +
+    geom_vline(xintercept = mean(trial_ratings), color = "#c0392b", linewidth = 0.9) +
+    scale_x_continuous(limits = c(1, 100), breaks = seq(0, 100, by = 10)) +
+    labs(
+      x = "Rating (1 = left end, 100 = right end)",
+      y = "Count",
+      title = paste("Histogram of ratings for trial", trial)
+    ) +
+    theme_minimal(base_size = 11)
+  print(p)
+}
+```
