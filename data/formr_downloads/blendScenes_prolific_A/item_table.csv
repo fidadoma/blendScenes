@@ -1,0 +1,281 @@
+"type","choice_list","type_options","name","label","label_parsed","optional","class","showif","value","block_order","item_order","choices","index"
+"get",,"PROLIFIC_PID","prolific_code","","",0,,"",,"",1,,1
+"note",,,"note_intro","# Similarity of artificial scenes
+ 
+In this study, you will evaluate the similarity of artificially generated photographs. Your task is to determine, for each pair, which of the two images most closely resembles the third image.","<h1>Similarity of artificial scenes</h1>
+<p>In this study, you will evaluate the similarity of artificially generated photographs. Your task is to determine, for each pair, which of the two images most closely resembles the third image.</p>",1,,"",,"",1,,2
+"submit",,,"page_1","Continue","Continue",0,,"",,"",2,,3
+"note",,,"note_consent","**Study Title:** Image Perception and Similarity Rating Task of Artificial scenes
+ 
+ **Introduction**
+ You are invited to take part in a research study about how people perceive and compare images. Before you decide to participate, please read the information below carefully.
+ 
+ ---
+ 
+ **What data will be collected?**
+ We will collect your responses to image rating tasks, along with your Prolific ID. No directly identifying personal information (such as your name or contact details) will be collected. This study does not collect sensitive personal data.
+ 
+ ---
+ 
+ **What will you do?**
+ You will be shown sets of three images. Two images will appear on the bottom row, and one image will appear above them. The top image is a blend of the two bottom images. You will be asked to rate or evaluate the relationship or similarity between these images according to the instructions provided.
+ 
+ ---
+ 
+ **How will the data be used?**
+ Your responses will be used for academic research purposes to better understand human visual perception. Results may be published in scientific papers or presentations.
+ 
+ ---
+ 
+ **How will the data be stored and for how long?**
+ Your data will be stored securely on password-protected systems and will be retained for [X years] in accordance with research data policies.
+ 
+ ---
+ 
+ **Anonymity and confidentiality**
+ Your responses will be stored using a pseudonymous identifier (your Prolific ID). No identifying information will be linked to your responses in any publications or shared datasets.
+ 
+ ---
+ 
+ **Data sharing**
+ Anonymized data may be shared with other researchers or made available in online repositories for scientific purposes.
+ 
+ ---
+ 
+ **Voluntary participation and withdrawal**
+ Your participation is voluntary. You may withdraw at any time by exiting the study and returning your submission on Prolific. If you wish to withdraw your data after participation, you may contact the researcher using the details below. After anonymization, it may not be possible to remove your data.
+ 
+ ---
+ 
+ **Legal basis for data processing**
+ This study is conducted under the legal basis of your consent in accordance with the General Data Protection Regulation (GDPR).
+ 
+ ---
+ 
+ **Contact information**
+ If you have any questions about this study or your data, please contact:
+ dechterenko@praha.psu.cas.cz
+ 
+ ---
+ 
+ **Consent**
+ Please indicate whether you agree with the following statements:
+ 
+ * I have read and understood the information above
+ * I understand how my data will be collected and used
+ * I understand that my participation is voluntary and that I can withdraw at any time
+ * I am at least 18 years old
+ 
+ (If you do not consent, please exit the study now.)","<p><strong>Study Title:</strong> Image Perception and Similarity Rating Task of Artificial scenes</p>
+<p><strong>Introduction</strong><br />
+You are invited to take part in a research study about how people perceive and compare images. Before you decide to participate, please read the information below carefully.</p>
+<hr />
+<p><strong>What data will be collected?</strong><br />
+We will collect your responses to image rating tasks, along with your Prolific ID. No directly identifying personal information (such as your name or contact details) will be collected. This study does not collect sensitive personal data.</p>
+<hr />
+<p><strong>What will you do?</strong><br />
+You will be shown sets of three images. Two images will appear on the bottom row, and one image will appear above them. The top image is a blend of the two bottom images. You will be asked to rate or evaluate the relationship or similarity between these images according to the instructions provided.</p>
+<hr />
+<p><strong>How will the data be used?</strong><br />
+Your responses will be used for academic research purposes to better understand human visual perception. Results may be published in scientific papers or presentations.</p>
+<hr />
+<p><strong>How will the data be stored and for how long?</strong><br />
+Your data will be stored securely on password-protected systems and will be retained for [X years] in accordance with research data policies.</p>
+<hr />
+<p><strong>Anonymity and confidentiality</strong><br />
+Your responses will be stored using a pseudonymous identifier (your Prolific ID). No identifying information will be linked to your responses in any publications or shared datasets.</p>
+<hr />
+<p><strong>Data sharing</strong><br />
+Anonymized data may be shared with other researchers or made available in online repositories for scientific purposes.</p>
+<hr />
+<p><strong>Voluntary participation and withdrawal</strong><br />
+Your participation is voluntary. You may withdraw at any time by exiting the study and returning your submission on Prolific. If you wish to withdraw your data after participation, you may contact the researcher using the details below. After anonymization, it may not be possible to remove your data.</p>
+<hr />
+<p><strong>Legal basis for data processing</strong><br />
+This study is conducted under the legal basis of your consent in accordance with the General Data Protection Regulation (GDPR).</p>
+<hr />
+<p><strong>Contact information</strong><br />
+If you have any questions about this study or your data, please contact:<br />
+dechterenko@praha.psu.cas.cz</p>
+<hr />
+<p><strong>Consent</strong><br />
+Please indicate whether you agree with the following statements:</p>
+<ul>
+<li>I have read and understood the information above</li>
+<li>I understand how my data will be collected and used</li>
+<li>I understand that my participation is voluntary and that I can withdraw at any time</li>
+<li>
+<p>I am at least 18 years old</p>
+<p>(If you do not consent, please exit the study now.)</p>
+</li>
+</ul>",1,,"",,"",3,,4
+"check",,,"confirm_consent","__I consent to participate in this study__","<strong>I consent to participate in this study</strong>",1,,"",,"",4,,5
+"submit",,,"page_3","Continue","Continue",0,,"",,"",5,,6
+"note",,,"note_example","Here is an example of the task. Use the slider to indicate how similar the image is to the left or the right image.
+ <div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/lAXO90sMrvVyPJHoPU7f/instructions.png?v=1774426168"" alt=""1_inst"" class=""responsive"" style=""max-width: 70%; height: auto;"">","<p>Here is an example of the task. Use the slider to indicate how similar the image is to the left or the right image.</p>
+<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/lAXO90sMrvVyPJHoPU7f/instructions.png?v=1774426168"" alt=""1_inst"" class=""responsive"" style=""max-width: 70%; height: auto;""></div>",1,,"",,"",6,,7
+"submit",,,"page_3b","Continue","Continue",0,,"",,"",7,,8
+"note",,,"note_ntrials","There are 50 trials in total. Among these trials, there are 4 trials in which there is a correct answer (the upper image is identical to one of the images below). In order to successfully pass the study, you need to answer correctly in these trials by selecting the correct end of the scale.","There are 50 trials in total. Among these trials, there are 4 trials in which there is a correct answer (the upper image is identical to one of the images below). In order to successfully pass the study, you need to answer correctly in these trials by selecting the correct end of the scale.",1,,"",,"",8,,9
+"submit",,,"page_3c","Continue","Continue",0,,"",,"",9,,10
+"note",,,"note_1","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/4kG7bo_k5xRLFxASSxUI/1_kolaz.png?v=1773299464"" alt=""1_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;"">","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/4kG7bo_k5xRLFxASSxUI/1_kolaz.png?v=1773299464"" alt=""1_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;""></div>",1,,"",,"A",10,,11
+"note",,,"note_5","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/4kG7bo_k5xRLFxASSxUI/5_kolaz.png?v=1773299464"" alt=""5_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;"">","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/4kG7bo_k5xRLFxASSxUI/5_kolaz.png?v=1773299464"" alt=""5_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;""></div>",1,,"",,"E",10,,12
+"note",,,"note_9","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/4kG7bo_k5xRLFxASSxUI/9_kolaz.png?v=1773299464"" alt=""9_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;"">","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/4kG7bo_k5xRLFxASSxUI/9_kolaz.png?v=1773299464"" alt=""9_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;""></div>",1,,"",,"I",10,,13
+"note",,,"note_13","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/D4AcHbtIBnO1mBwXq-Gp/13_kolaz.png?v=1773299540"" alt=""13_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;"">","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/D4AcHbtIBnO1mBwXq-Gp/13_kolaz.png?v=1773299540"" alt=""13_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;""></div>",1,,"",,"M",10,,14
+"note",,,"note_17","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/D4AcHbtIBnO1mBwXq-Gp/17_kolaz.png?v=1773299540"" alt=""17_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;"">","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/D4AcHbtIBnO1mBwXq-Gp/17_kolaz.png?v=1773299540"" alt=""17_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;""></div>",1,,"",,"Q",10,,15
+"note",,,"note_21","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/23JTiwg3l37caGcfIJV1/21_kolaz.png?v=1773300616"" alt=""21_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;"">","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/23JTiwg3l37caGcfIJV1/21_kolaz.png?v=1773300616"" alt=""21_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;""></div>",1,,"",,"U",10,,16
+"note",,,"note_25","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/23JTiwg3l37caGcfIJV1/25_kolaz.png?v=1773300616"" alt=""25_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;"">","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/23JTiwg3l37caGcfIJV1/25_kolaz.png?v=1773300616"" alt=""25_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;""></div>",1,,"",,"Y",10,,17
+"note",,,"note_29","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/8oxJ1_dRth2R80VczIOv/29_kolaz.png?v=1773300633"" alt=""29_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;"">","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/8oxJ1_dRth2R80VczIOv/29_kolaz.png?v=1773300633"" alt=""29_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;""></div>",1,,"",,"CC",10,,18
+"note",,,"note_33","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/wRmP5kYYzKTtrPl6dn7i/33_kolaz.png?v=1773300823"" alt=""33_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;"">","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/wRmP5kYYzKTtrPl6dn7i/33_kolaz.png?v=1773300823"" alt=""33_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;""></div>",1,,"",,"GG",10,,19
+"note",,,"note_37","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/NpYfhz3ouSK3DqZEI1He/37_kolaz.png?v=1773300844"" alt=""37_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;"">","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/NpYfhz3ouSK3DqZEI1He/37_kolaz.png?v=1773300844"" alt=""37_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;""></div>",1,,"",,"KK",10,,20
+"range","slider_1","1,100,1","slider_1","### Which of these two images is the top image more similar to?","<h3>Which of these two images is the top image more similar to?</h3>",0,,"",,"A",11,"1=Left,2=Right",21
+"range","slider_5","1,100,1","slider_5","### Which of these two images is the top image more similar to?","<h3>Which of these two images is the top image more similar to?</h3>",0,,"",,"E",11,"1=Left,2=Right",22
+"range","slider_9","1,100,1","slider_9","### Which of these two images is the top image more similar to?","<h3>Which of these two images is the top image more similar to?</h3>",0,,"",,"I",11,"1=Left,2=Right",23
+"range","slider_13","1,100,1","slider_13","### Which of these two images is the top image more similar to?","<h3>Which of these two images is the top image more similar to?</h3>",0,,"",,"M",11,"1=Left,2=Right",24
+"range","slider_17","1,100,1","slider_17","### Which of these two images is the top image more similar to?","<h3>Which of these two images is the top image more similar to?</h3>",0,,"",,"Q",11,"1=Left,2=Right",25
+"range","slider_21","1,100,1","slider_21","### Which of these two images is the top image more similar to?","<h3>Which of these two images is the top image more similar to?</h3>",0,,"",,"U",11,"1=Left,2=Right",26
+"range","slider_25","1,100,1","slider_25","### Which of these two images is the top image more similar to?","<h3>Which of these two images is the top image more similar to?</h3>",0,,"",,"Y",11,"1=Left,2=Right",27
+"range","slider_29","1,100,1","slider_29","### Which of these two images is the top image more similar to?","<h3>Which of these two images is the top image more similar to?</h3>",0,,"",,"CC",11,"1=Left,2=Right",28
+"range","slider_33","1,100,1","slider_33","### Which of these two images is the top image more similar to?","<h3>Which of these two images is the top image more similar to?</h3>",0,,"",,"GG",11,"1=Left,2=Right",29
+"range","slider_37","1,100,1","slider_37","### Which of these two images is the top image more similar to?","<h3>Which of these two images is the top image more similar to?</h3>",0,,"",,"KK",11,"1=Left,2=Right",30
+"submit",,,"page_4","Continue","Continue",0,,"",,"A",12,,31
+"submit",,,"page_8","Continue","Continue",0,,"",,"E",12,,32
+"submit",,,"page_12","Continue","Continue",0,,"",,"I",12,,33
+"submit",,,"page_16","Continue","Continue",0,,"",,"M",12,,34
+"submit",,,"page_20","Continue","Continue",0,,"",,"Q",12,,35
+"submit",,,"page_24","Continue","Continue",0,,"",,"U",12,,36
+"submit",,,"page_28","Continue","Continue",0,,"",,"Y",12,,37
+"submit",,,"page_32","Continue","Continue",0,,"",,"CC",12,,38
+"submit",,,"page_36","Continue","Continue",0,,"",,"GG",12,,39
+"submit",,,"page_40","Continue","Continue",0,,"",,"KK",12,,40
+"note",,,"note_catch1","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/lChhSF2IxHyyezgRtMUU/catch1.png?v=1774440479"" alt=""40a_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;"">","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/lChhSF2IxHyyezgRtMUU/catch1.png?v=1774440479"" alt=""40a_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;""></div>",1,,"",,"",13,,41
+"range","slider_catch1","1,100,1","slider_catch1","### Which of these two images is the top image more similar to?","<h3>Which of these two images is the top image more similar to?</h3>",0,,"",,"",14,"1=Left,2=Right",42
+"submit",,,"page_catch1","Continue","Continue",0,,"",,"",15,,43
+"note",,,"note_41","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/_mBOo9VQx1El4Xc2ZkLL/41_kolaz.png?v=1773301051"" alt=""41_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;"">","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/_mBOo9VQx1El4Xc2ZkLL/41_kolaz.png?v=1773301051"" alt=""41_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;""></div>",1,,"",,"OO",16,,44
+"note",,,"note_45","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/_mBOo9VQx1El4Xc2ZkLL/45_kolaz.png?v=1773301051"" alt=""45_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;"">","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/_mBOo9VQx1El4Xc2ZkLL/45_kolaz.png?v=1773301051"" alt=""45_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;""></div>",1,,"",,"SS",16,,45
+"note",,,"note_49","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/EyC0NjX9_3F0Mnm6WyN3/49_kolaz.png?v=1773301097"" alt=""49_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;"">","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/EyC0NjX9_3F0Mnm6WyN3/49_kolaz.png?v=1773301097"" alt=""49_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;""></div>",1,,"",,"WW",16,,46
+"note",,,"note_53","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/chP8DgyKUm85E9a8MHmV/53_kolaz.png?v=1773301272"" alt=""53_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;"">","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/chP8DgyKUm85E9a8MHmV/53_kolaz.png?v=1773301272"" alt=""53_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;""></div>",1,,"",,"AZA",16,,47
+"note",,,"note_57","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/tmFZ025aBsTtVqZmd0jo/57_kolaz.png?v=1773301289"" alt=""57_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;"">","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/tmFZ025aBsTtVqZmd0jo/57_kolaz.png?v=1773301289"" alt=""57_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;""></div>",1,,"",,"EA",16,,48
+"note",,,"note_61","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/s_s_n2HLzygqn3r6EjA4/61_kolaz.png?v=1773301676"" alt=""61_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;"">","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/s_s_n2HLzygqn3r6EjA4/61_kolaz.png?v=1773301676"" alt=""61_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;""></div>",1,,"",,"IA",16,,49
+"note",,,"note_65","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/s_s_n2HLzygqn3r6EjA4/65_kolaz.png.jpg?v=1773301676"" alt=""65_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;"">","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/s_s_n2HLzygqn3r6EjA4/65_kolaz.png.jpg?v=1773301676"" alt=""65_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;""></div>",1,,"",,"MA",16,,50
+"note",,,"note_69","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/XfpOZiVRhp1MgBXMzA5F/69_kolaz.png?v=1773301694"" alt=""69_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;"">","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/XfpOZiVRhp1MgBXMzA5F/69_kolaz.png?v=1773301694"" alt=""69_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;""></div>",1,,"",,"QA",16,,51
+"note",,,"note_73","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/6aQM6l0JaSsnvo-jdJ2X/73_kolaz.png?v=1773301951"" alt=""73_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;"">","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/6aQM6l0JaSsnvo-jdJ2X/73_kolaz.png?v=1773301951"" alt=""73_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;""></div>",1,,"",,"UA",16,,52
+"note",,,"note_77","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/BLEP8nkzeEoRMf_ySlpT/77_kolaz.png?v=1773301985"" alt=""77_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;"">","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/BLEP8nkzeEoRMf_ySlpT/77_kolaz.png?v=1773301985"" alt=""77_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;""></div>",1,,"",,"YA",16,,53
+"range","slider_41","1,100,1","slider_41","### Which of these two images is the top image more similar to?","<h3>Which of these two images is the top image more similar to?</h3>",0,,"",,"OO",17,"1=Left,2=Right",54
+"range","slider_45","1,100,1","slider_45","### Which of these two images is the top image more similar to?","<h3>Which of these two images is the top image more similar to?</h3>",0,,"",,"SS",17,"1=Left,2=Right",55
+"range","slider_49","1,100,1","slider_49","### Which of these two images is the top image more similar to?","<h3>Which of these two images is the top image more similar to?</h3>",0,,"",,"WW",17,"1=Left,2=Right",56
+"range","slider_53","1,100,1","slider_53","### Which of these two images is the top image more similar to?","<h3>Which of these two images is the top image more similar to?</h3>",0,,"",,"AZA",17,"1=Left,2=Right",57
+"range","slider_57","1,100,1","slider_57","### Which of these two images is the top image more similar to?","<h3>Which of these two images is the top image more similar to?</h3>",0,,"",,"EA",17,"1=Left,2=Right",58
+"range","slider_61","1,100,1","slider_61","### Which of these two images is the top image more similar to?","<h3>Which of these two images is the top image more similar to?</h3>",0,,"",,"IA",17,"1=Left,2=Right",59
+"range","slider_65","1,100,1","slider_65","### Which of these two images is the top image more similar to?","<h3>Which of these two images is the top image more similar to?</h3>",0,,"",,"MA",17,"1=Left,2=Right",60
+"range","slider_69","1,100,1","slider_69","### Which of these two images is the top image more similar to?","<h3>Which of these two images is the top image more similar to?</h3>",0,,"",,"QA",17,"1=Left,2=Right",61
+"range","slider_73","1,100,1","slider_73","### Which of these two images is the top image more similar to?","<h3>Which of these two images is the top image more similar to?</h3>",0,,"",,"UA",17,"1=Left,2=Right",62
+"range","slider_77","1,100,1","slider_77","### Which of these two images is the top image more similar to?","<h3>Which of these two images is the top image more similar to?</h3>",0,,"",,"YA",17,"1=Left,2=Right",63
+"submit",,,"page_44","Continue","Continue",0,,"",,"OO",18,,64
+"submit",,,"page_48","Continue","Continue",0,,"",,"SS",18,,65
+"submit",,,"page_52","Continue","Continue",0,,"",,"WW",18,,66
+"submit",,,"page_56","Continue","Continue",0,,"",,"AZA",18,,67
+"submit",,,"page_60","Continue","Continue",0,,"",,"EA",18,,68
+"submit",,,"page_64","Continue","Continue",0,,"",,"IA",18,,69
+"submit",,,"page_68","Continue","Continue",0,,"",,"MA",18,,70
+"submit",,,"page_72","Continue","Continue",0,,"",,"QA",18,,71
+"submit",,,"page_76","Continue","Continue",0,,"",,"UA",18,,72
+"submit",,,"page_80","Continue","Continue",0,,"",,"YA",18,,73
+"note",,,"note_catch2","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/lChhSF2IxHyyezgRtMUU/catch2.png?v=1774440479"" alt=""83a_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;"">","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/lChhSF2IxHyyezgRtMUU/catch2.png?v=1774440479"" alt=""83a_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;""></div>",1,,"",,"",19,,74
+"range","slider_catch2","1,100,1","slider_catch2","### Which of these two images is the top image more similar to?","<h3>Which of these two images is the top image more similar to?</h3>",0,,"",,"",20,"1=Left,2=Right",75
+"submit",,,"page_catch2","Continue","Continue",0,,"",,"",21,,76
+"note",,,"note_81","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/v2mkoWBhZx09K7pRaAi8/81_kolaz.png?v=1773302214"" alt=""81_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;"">","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/v2mkoWBhZx09K7pRaAi8/81_kolaz.png?v=1773302214"" alt=""81_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;""></div>",1,,"",,"CB",22,,77
+"note",,,"note_85","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/v2mkoWBhZx09K7pRaAi8/85_kolaz.png?v=1773302214"" alt=""85_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;"">","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/v2mkoWBhZx09K7pRaAi8/85_kolaz.png?v=1773302214"" alt=""85_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;""></div>",1,,"",,"GB",22,,78
+"note",,,"note_89","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/2kPFwzc3r2loWUA62n4_/89_kolaz.png?v=1773302258"" alt=""89_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;"">","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/2kPFwzc3r2loWUA62n4_/89_kolaz.png?v=1773302258"" alt=""89_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;""></div>",1,,"",,"KB",22,,79
+"note",,,"note_93","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/gWHfG6lcdiYJo10eurWn/93_kolaz.png.png?v=1773306232"" alt=""93_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;"">","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/gWHfG6lcdiYJo10eurWn/93_kolaz.png.png?v=1773306232"" alt=""93_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;""></div>",1,,"",,"OB",22,,80
+"note",,,"note_97","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/ZcGbb4V25dETOBp_cx9y/97_kolaz.png?v=1773306195"" alt=""97_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;"">","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/ZcGbb4V25dETOBp_cx9y/97_kolaz.png?v=1773306195"" alt=""97_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;""></div>",1,,"",,"SB",22,,81
+"note",,,"note_101","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/biGG6QsDc7CRwuqPSJLE/101_kolaz.png?v=1773306165"" alt=""101_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;"">","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/biGG6QsDc7CRwuqPSJLE/101_kolaz.png?v=1773306165"" alt=""101_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;""></div>",1,,"",,"WB",22,,82
+"note",,,"note_105","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/biGG6QsDc7CRwuqPSJLE/105_kolaz.png?v=1773306165"" alt=""105_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;"">","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/biGG6QsDc7CRwuqPSJLE/105_kolaz.png?v=1773306165"" alt=""105_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;""></div>",1,,"",,"ACA",22,,83
+"note",,,"note_109","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/kduwMGZcBYkUAj5w3Hu1/109_kolaz.png?v=1773306148"" alt=""109_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;"">","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/kduwMGZcBYkUAj5w3Hu1/109_kolaz.png?v=1773306148"" alt=""109_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;""></div>",1,,"",,"EC",22,,84
+"note",,,"note_113","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/pOKQtuKJ_nGM7po_3aZa/113_kolaz.png?v=1773306130"" alt=""113_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;"">","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/pOKQtuKJ_nGM7po_3aZa/113_kolaz.png?v=1773306130"" alt=""113_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;""></div>",1,,"",,"IC",22,,85
+"note",,,"note_117","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/7fC5VmSisKf7jme8u60d/117_kolaz.png.jpg?v=1773306102"" alt=""117_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;"">","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/7fC5VmSisKf7jme8u60d/117_kolaz.png.jpg?v=1773306102"" alt=""117_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;""></div>",1,,"",,"MC",22,,86
+"range","slider_81","1,100,1","slider_81","### Which of these two images is the top image more similar to?","<h3>Which of these two images is the top image more similar to?</h3>",0,,"",,"CB",23,"1=Left,2=Right",87
+"range","slider_85","1,100,1","slider_85","### Which of these two images is the top image more similar to?","<h3>Which of these two images is the top image more similar to?</h3>",0,,"",,"GB",23,"1=Left,2=Right",88
+"range","slider_89","1,100,1","slider_89","### Which of these two images is the top image more similar to?","<h3>Which of these two images is the top image more similar to?</h3>",0,,"",,"KB",23,"1=Left,2=Right",89
+"range","slider_93","1,100,1","slider_93","### Which of these two images is the top image more similar to?","<h3>Which of these two images is the top image more similar to?</h3>",0,,"",,"OB",23,"1=Left,2=Right",90
+"range","slider_97","1,100,1","slider_97","### Which of these two images is the top image more similar to?","<h3>Which of these two images is the top image more similar to?</h3>",0,,"",,"SB",23,"1=Left,2=Right",91
+"range","slider_101","1,100,1","slider_101","### Which of these two images is the top image more similar to?","<h3>Which of these two images is the top image more similar to?</h3>",0,,"",,"WB",23,"1=Left,2=Right",92
+"range","slider_105","1,100,1","slider_105","### Which of these two images is the top image more similar to?","<h3>Which of these two images is the top image more similar to?</h3>",0,,"",,"ACA",23,"1=Left,2=Right",93
+"range","slider_109","1,100,1","slider_109","### Which of these two images is the top image more similar to?","<h3>Which of these two images is the top image more similar to?</h3>",0,,"",,"EC",23,"1=Left,2=Right",94
+"range","slider_113","1,100,1","slider_113","### Which of these two images is the top image more similar to?","<h3>Which of these two images is the top image more similar to?</h3>",0,,"",,"IC",23,"1=Left,2=Right",95
+"range","slider_117","1,100,1","slider_117","### Which of these two images is the top image more similar to?","<h3>Which of these two images is the top image more similar to?</h3>",0,,"",,"MC",23,"1=Left,2=Right",96
+"submit",,,"page_84","Continue","Continue",0,,"",,"CB",24,,97
+"submit",,,"page_88","Continue","Continue",0,,"",,"GB",24,,98
+"submit",,,"page_92","Continue","Continue",0,,"",,"KB",24,,99
+"submit",,,"page_96","Continue","Continue",0,,"",,"OB",24,,100
+"submit",,,"page_100","Continue","Continue",0,,"",,"SB",24,,101
+"submit",,,"page_104","Continue","Continue",0,,"",,"WB",24,,102
+"submit",,,"page_108","Continue","Continue",0,,"",,"ACA",24,,103
+"submit",,,"page_112","Continue","Continue",0,,"",,"EC",24,,104
+"submit",,,"page_116","Continue","Continue",0,,"",,"IC",24,,105
+"submit",,,"page_120","Continue","Continue",0,,"",,"MC",24,,106
+"note",,,"note_catch3","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/lChhSF2IxHyyezgRtMUU/catch3.png?v=1774440479"" alt=""83a_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;"">","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/lChhSF2IxHyyezgRtMUU/catch3.png?v=1774440479"" alt=""83a_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;""></div>",1,,"",,"",25,,107
+"range","slider_catch3","1,100,1","slider_catch3","### Which of these two images is the top image more similar to?","<h3>Which of these two images is the top image more similar to?</h3>",0,,"",,"",26,"1=Left,2=Right",108
+"submit",,,"page_catch3","Continue","Continue",0,,"",,"",27,,109
+"note",,,"note_121","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/4H0glOlH8A5j9-jJ879S/121_kolaz.png?v=1773306011"" alt=""121_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;"">","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/4H0glOlH8A5j9-jJ879S/121_kolaz.png?v=1773306011"" alt=""121_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;""></div>",1,,"",,"QC",28,,110
+"note",,,"note_125","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/4H0glOlH8A5j9-jJ879S/125_kolaz.png?v=1773306011"" alt=""125_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;"">","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/4H0glOlH8A5j9-jJ879S/125_kolaz.png?v=1773306011"" alt=""125_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;""></div>",1,,"",,"UC",28,,111
+"note",,,"note_129","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/-e6HpLlbH6o0H41h_P8E/129_kolaz.png?v=1773305989"" alt=""129_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;"">","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/-e6HpLlbH6o0H41h_P8E/129_kolaz.png?v=1773305989"" alt=""129_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;""></div>",1,,"",,"YC",28,,112
+"note",,,"note_133","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/2XFrFBscqkiaTxrg6RRp/133_kolaz.png?v=1773305922"" alt=""133_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;"">","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/2XFrFBscqkiaTxrg6RRp/133_kolaz.png?v=1773305922"" alt=""133_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;""></div>",1,,"",,"CDC",28,,113
+"note",,,"note_137","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/UL41GPUFagUb_q4RHQU7/137_kolaz.png?v=1773305891"" alt=""137_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;"">","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/UL41GPUFagUb_q4RHQU7/137_kolaz.png?v=1773305891"" alt=""137_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;""></div>",1,,"",,"GD",28,,114
+"note",,,"note_141","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/52L47cLQ8uADfBQJ2sRN/141_kolaz.png?v=1773305867"" alt=""141_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;"">","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/52L47cLQ8uADfBQJ2sRN/141_kolaz.png?v=1773305867"" alt=""141_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;""></div>",1,,"",,"KD",28,,115
+"note",,,"note_145","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/52L47cLQ8uADfBQJ2sRN/145_kolaz.png?v=1773305867"" alt=""145_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;"">","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/52L47cLQ8uADfBQJ2sRN/145_kolaz.png?v=1773305867"" alt=""145_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;""></div>",1,,"",,"OD",28,,116
+"note",,,"note_149","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/EfrK3AUcgFnGs931bPZG/149_kolaz.png?v=1773305843"" alt=""149_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;"">","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/EfrK3AUcgFnGs931bPZG/149_kolaz.png?v=1773305843"" alt=""149_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;""></div>",1,,"",,"SD",28,,117
+"note",,,"note_153","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/iMtM3tr6p1X3M9JxZrki/153_kolaz.png?v=1773305823"" alt=""153_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;"">","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/iMtM3tr6p1X3M9JxZrki/153_kolaz.png?v=1773305823"" alt=""153_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;""></div>",1,,"",,"WD",28,,118
+"note",,,"note_157","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/LYBFYuQKPLVCzItYsJLQ/157_kolaz.png?v=1773305797"" alt=""157_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;"">","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/LYBFYuQKPLVCzItYsJLQ/157_kolaz.png?v=1773305797"" alt=""157_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;""></div>",1,,"",,"AEA",28,,119
+"range","slider_121","1,100,1","slider_121","### Which of these two images is the top image more similar to?","<h3>Which of these two images is the top image more similar to?</h3>",0,,"",,"QC",29,"1=Left,2=Right",120
+"range","slider_125","1,100,1","slider_125","### Which of these two images is the top image more similar to?","<h3>Which of these two images is the top image more similar to?</h3>",0,,"",,"UC",29,"1=Left,2=Right",121
+"range","slider_129","1,100,1","slider_129","### Which of these two images is the top image more similar to?","<h3>Which of these two images is the top image more similar to?</h3>",0,,"",,"YC",29,"1=Left,2=Right",122
+"range","slider_133","1,100,1","slider_133","### Which of these two images is the top image more similar to?","<h3>Which of these two images is the top image more similar to?</h3>",0,,"",,"CDC",29,"1=Left,2=Right",123
+"range","slider_137","1,100,1","slider_137","### Which of these two images is the top image more similar to?","<h3>Which of these two images is the top image more similar to?</h3>",0,,"",,"GD",29,"1=Left,2=Right",124
+"range","slider_141","1,100,1","slider_141","### Which of these two images is the top image more similar to?","<h3>Which of these two images is the top image more similar to?</h3>",0,,"",,"KD",29,"1=Left,2=Right",125
+"range","slider_145","1,100,1","slider_145","### Which of these two images is the top image more similar to?","<h3>Which of these two images is the top image more similar to?</h3>",0,,"",,"OD",29,"1=Left,2=Right",126
+"range","slider_149","1,100,1","slider_149","### Which of these two images is the top image more similar to?","<h3>Which of these two images is the top image more similar to?</h3>",0,,"",,"SD",29,"1=Left,2=Right",127
+"range","slider_153","1,100,1","slider_153","### Which of these two images is the top image more similar to?","<h3>Which of these two images is the top image more similar to?</h3>",0,,"",,"WD",29,"1=Left,2=Right",128
+"range","slider_157","1,100,1","slider_157","### Which of these two images is the top image more similar to?","<h3>Which of these two images is the top image more similar to?</h3>",0,,"",,"AEA",29,"1=Left,2=Right",129
+"submit",,,"page_124","Continue","Continue",0,,"",,"QC",30,,130
+"submit",,,"page_128","Continue","Continue",0,,"",,"UC",30,,131
+"submit",,,"page_132","Continue","Continue",0,,"",,"YC",30,,132
+"submit",,,"page_136","Continue","Continue",0,,"",,"CDC",30,,133
+"submit",,,"page_140","Continue","Continue",0,,"",,"GD",30,,134
+"submit",,,"page_144","Continue","Continue",0,,"",,"KD",30,,135
+"submit",,,"page_148","Continue","Continue",0,,"",,"OD",30,,136
+"submit",,,"page_152","Continue","Continue",0,,"",,"SD",30,,137
+"submit",,,"page_156","Continue","Continue",0,,"",,"WD",30,,138
+"submit",,,"page_160","Continue","Continue",0,,"",,"AEA",30,,139
+"note",,,"note_catch4","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/lChhSF2IxHyyezgRtMUU/catch4.png?v=1774440479"" alt=""163a_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;"">","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/lChhSF2IxHyyezgRtMUU/catch4.png?v=1774440479"" alt=""163a_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;""></div>",1,,"",,"",31,,140
+"range","slider_catch4","1,100,1","slider_catch4","### Which of these two images is the top image more similar to?","<h3>Which of these two images is the top image more similar to?</h3>",0,,"",,"",32,"1=Left,2=Right",141
+"submit",,,"page_catch4","Continue","Continue",0,,"",,"",33,,142
+"note",,,"note_161","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/hn9i57peRpszeq00SRv3/161_kolaz.png?v=1773305745"" alt=""161_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;"">","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/hn9i57peRpszeq00SRv3/161_kolaz.png?v=1773305745"" alt=""161_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;""></div>",1,,"",,"EEA",34,,143
+"note",,,"note_165","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/hn9i57peRpszeq00SRv3/165_kolaz.png?v=1773305745"" alt=""165_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;"">","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/hn9i57peRpszeq00SRv3/165_kolaz.png?v=1773305745"" alt=""165_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;""></div>",1,,"",,"IE",34,,144
+"note",,,"note_169","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/7dkpPjrWaL7_fUAWSJGD/169_kolaz.png?v=1773305727"" alt=""169_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;"">","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/7dkpPjrWaL7_fUAWSJGD/169_kolaz.png?v=1773305727"" alt=""169_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;""></div>",1,,"",,"ME",34,,145
+"note",,,"note_173","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/oySU_UFykIV5IrJ_DUZR/173_kolaz.png?v=1773305659"" alt=""173_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;"">","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/oySU_UFykIV5IrJ_DUZR/173_kolaz.png?v=1773305659"" alt=""173_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;""></div>",1,,"",,"QE",34,,146
+"note",,,"note_177","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/Skj0ezuTkA_f7spYOCmq/177_kolaz.png?v=1773305636"" alt=""177_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;"">","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/Skj0ezuTkA_f7spYOCmq/177_kolaz.png?v=1773305636"" alt=""177_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;""></div>",1,,"",,"UE",34,,147
+"note",,,"note_181","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/hZPLGwCToxPqmst2AEwq/181_kolaz.png?v=1773305612"" alt=""181_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;"">","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/hZPLGwCToxPqmst2AEwq/181_kolaz.png?v=1773305612"" alt=""181_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;""></div>",1,,"",,"YE",34,,148
+"note",,,"note_185","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/hZPLGwCToxPqmst2AEwq/185_kolaz.png?v=1773305612"" alt=""185_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;"">","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/hZPLGwCToxPqmst2AEwq/185_kolaz.png?v=1773305612"" alt=""185_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;""></div>",1,,"",,"CFC",34,,149
+"note",,,"note_189","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/zBYrebAnJcl_gqPDFQrQ/189_kolaz.png?v=1773305588"" alt=""189_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;"">","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/zBYrebAnJcl_gqPDFQrQ/189_kolaz.png?v=1773305588"" alt=""189_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;""></div>",1,,"",,"GF",34,,150
+"note",,,"note_193","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/67T6B9M899reTM_pMGzO/193_kolaz.png?v=1773305559"" alt=""193_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;"">","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/67T6B9M899reTM_pMGzO/193_kolaz.png?v=1773305559"" alt=""193_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;""></div>",1,,"",,"KF",34,,151
+"note",,,"note_197","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/u1qlCUgVPPEICNySvjfn/197_kolaz.png?v=1773305537"" alt=""197_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;"">","<div style=""text-align: center;""> <img src=""https://www.uklab.cz/assets/tmp/admin/u1qlCUgVPPEICNySvjfn/197_kolaz.png?v=1773305537"" alt=""197_kolaz"" class=""responsive"" style=""max-width: 70%; height: auto;""></div>",1,,"",,"OF",34,,152
+"range","slider_161","1,100,1","slider_161","### Which of these two images is the top image more similar to?","<h3>Which of these two images is the top image more similar to?</h3>",0,,"",,"EEA",35,"1=Left,2=Right",153
+"range","slider_165","1,100,1","slider_165","### Which of these two images is the top image more similar to?","<h3>Which of these two images is the top image more similar to?</h3>",0,,"",,"IE",35,"1=Left,2=Right",154
+"range","slider_169","1,100,1","slider_169","### Which of these two images is the top image more similar to?","<h3>Which of these two images is the top image more similar to?</h3>",0,,"",,"ME",35,"1=Left,2=Right",155
+"range","slider_173","1,100,1","slider_173","### Which of these two images is the top image more similar to?","<h3>Which of these two images is the top image more similar to?</h3>",0,,"",,"QE",35,"1=Left,2=Right",156
+"range","slider_177","1,100,1","slider_177","### Which of these two images is the top image more similar to?","<h3>Which of these two images is the top image more similar to?</h3>",0,,"",,"UE",35,"1=Left,2=Right",157
+"range","slider_181","1,100,1","slider_181","### Which of these two images is the top image more similar to?","<h3>Which of these two images is the top image more similar to?</h3>",0,,"",,"YE",35,"1=Left,2=Right",158
+"range","slider_185","1,100,1","slider_185","### Which of these two images is the top image more similar to?","<h3>Which of these two images is the top image more similar to?</h3>",0,,"",,"CFC",35,"1=Left,2=Right",159
+"range","slider_189","1,100,1","slider_189","### Which of these two images is the top image more similar to?","<h3>Which of these two images is the top image more similar to?</h3>",0,,"",,"GF",35,"1=Left,2=Right",160
+"range","slider_193","1,100,1","slider_193","### Which of these two images is the top image more similar to?","<h3>Which of these two images is the top image more similar to?</h3>",0,,"",,"KF",35,"1=Left,2=Right",161
+"range","slider_197","1,100,1","slider_197","### Which of these two images is the top image more similar to?","<h3>Which of these two images is the top image more similar to?</h3>",0,,"",,"OF",35,"1=Left,2=Right",162
+"submit",,,"page_164","Continue","Continue",0,,"",,"EEA",36,,163
+"submit",,,"page_168","Continue","Continue",0,,"",,"IE",36,,164
+"submit",,,"page_172","Continue","Continue",0,,"",,"ME",36,,165
+"submit",,,"page_176","Continue","Continue",0,,"",,"QE",36,,166
+"submit",,,"page_180","Continue","Continue",0,,"",,"UE",36,,167
+"submit",,,"page_184","Continue","Continue",0,,"",,"YE",36,,168
+"submit",,,"page_188","Continue","Continue",0,,"",,"CFC",36,,169
+"submit",,,"page_192","Continue","Continue",0,,"",,"GF",36,,170
+"submit",,,"page_196","Continue","Continue",0,,"",,"KF",36,,171
+"submit",,,"page_200","Continue","Continue",0,,"",,"OF",36,,172
