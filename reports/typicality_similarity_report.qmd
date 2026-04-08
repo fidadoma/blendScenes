@@ -1,0 +1,347 @@
+---
+title: "blendScenes Typicality and Similarity Report"
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    code-fold: true
+    theme: cosmo
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library(knitr)
+library(purrr)
+library(readr)
+library(readxl)
+library(tidyr)
+library(tibble)
+
+workbook_path <- "../data/formr_downloads/blendScenes_prolific_A/results_version_A_long_with_images_and_paths.xlsx"
+feature_dir <- "../data/deep_features/version_A_places365_alexnet"
+typicality_path <- "../data/deep_features/version_A_places365_alexnet/image_manifest_chatgpt_typicality.csv"
+blends_path <- "../data/Blends.xlsx"
+
+normalize_image_id <- function(x) {
+  x <- as.character(x)
+  x <- sub("\\.[A-Za-z0-9]+$", "", x)
+  trimws(x)
+}
+
+cosine_pair <- function(a, b) {
+  denom <- sqrt(sum(a * a)) * sqrt(sum(b * b))
+  if (is.na(denom) || denom == 0) {
+    return(NA_real_)
+  }
+  sum(a * b) / denom
+}
+
+l2_pair <- function(a, b) {
+  sqrt(sum((a - b) ^ 2))
+}
+
+results_long <- read_excel(workbook_path, sheet = "long_results") |>
+  filter(trial_type == "trial") |>
+  mutate(
+    blend_image_id = normalize_image_id(blend_image),
+    left_image_id = normalize_image_id(left_image),
+    right_image_id = normalize_image_id(right_image)
+  )
+
+trial_index <- results_long |>
+  distinct(trial_id, blend_image, left_image, right_image, blend_image_id, left_image_id, right_image_id)
+
+blend_lookup <- read_excel(blends_path) |>
+  transmute(
+    trial_id = as.integer(id_blendu),
+    category1 = as.character(category1),
+    category2 = as.character(category2),
+    category_pair = paste0(category1, "-", category2)
+  )
+
+typicality_df <- read_csv(typicality_path, show_col_types = FALSE) |>
+  mutate(image_id = normalize_image_id(image_name)) |>
+  select(image_id, image_name, typ_chatgpt_m, typ_chatgpt_sd, typ_chatgpt_min, typ_chatgpt_max, typ_chatgpt_n, typ_chatgpt_model)
+
+feature_files <- c("conv3_features.csv", "conv5_features.csv", "fc6_features.csv", "fc7_features.csv")
+
+trial_side_list <- lapply(feature_files, function(file_name) {
+  layer_name <- sub("_features\\.csv$", "", basename(file_name))
+  feature_df <- read_csv(file.path(feature_dir, file_name), show_col_types = FALSE) |>
+    mutate(image_id = normalize_image_id(image_name))
+
+  feature_mat <- feature_df |>
+    select(-image_name, -image_id) |>
+    as.matrix()
+  rownames(feature_mat) <- feature_df$image_id
+
+  left_df <- trial_index |>
+    transmute(
+      trial_id,
+      layer = layer_name,
+      side = "left",
+      blend_image,
+      side_image = left_image,
+      blend_image_id,
+      side_image_id = left_image_id,
+      cosine_similarity = map2_dbl(
+        blend_image_id, left_image_id,
+        ~ cosine_pair(feature_mat[.x, ], feature_mat[.y, ])
+      ),
+      l2_distance = map2_dbl(
+        blend_image_id, left_image_id,
+        ~ l2_pair(feature_mat[.x, ], feature_mat[.y, ])
+      )
+    )
+
+  right_df <- trial_index |>
+    transmute(
+      trial_id,
+      layer = layer_name,
+      side = "right",
+      blend_image,
+      side_image = right_image,
+      blend_image_id,
+      side_image_id = right_image_id,
+      cosine_similarity = map2_dbl(
+        blend_image_id, right_image_id,
+        ~ cosine_pair(feature_mat[.x, ], feature_mat[.y, ])
+      ),
+      l2_distance = map2_dbl(
+        blend_image_id, right_image_id,
+        ~ l2_pair(feature_mat[.x, ], feature_mat[.y, ])
+      )
+    )
+
+  bind_rows(left_df, right_df)
+})
+
+trial_side <- bind_rows(trial_side_list) |>
+  left_join(blend_lookup, by = "trial_id") |>
+  left_join(typicality_df, by = c("side_image_id" = "image_id")) |>
+  rename(
+    side_typicality = typ_chatgpt_m,
+    side_typicality_sd = typ_chatgpt_sd
+  )
+
+layer_summary <- trial_side |>
+  group_by(layer) |>
+  summarise(
+    n_trial_sides = n(),
+    cor_typicality_cosine = cor(side_typicality, cosine_similarity, use = "complete.obs"),
+    cor_typicality_l2 = cor(side_typicality, l2_distance, use = "complete.obs"),
+    cosine_lm_r2 = summary(lm(cosine_similarity ~ side_typicality))$r.squared,
+    l2_lm_r2 = summary(lm(l2_distance ~ side_typicality))$r.squared,
+    .groups = "drop"
+  ) |>
+  mutate(across(where(is.numeric), ~ round(.x, 3)))
+
+pair_summary <- trial_side |>
+  group_by(layer, category_pair) |>
+  summarise(
+    n_trial_sides = n(),
+    cor_typicality_cosine = cor(side_typicality, cosine_similarity, use = "complete.obs"),
+    cor_typicality_l2 = cor(side_typicality, l2_distance, use = "complete.obs"),
+    cosine_lm_r2 = summary(lm(cosine_similarity ~ side_typicality))$r.squared,
+    l2_lm_r2 = summary(lm(l2_distance ~ side_typicality))$r.squared,
+    mean_typicality = mean(side_typicality, na.rm = TRUE),
+    mean_cosine = mean(cosine_similarity, na.rm = TRUE),
+    mean_l2 = mean(l2_distance, na.rm = TRUE),
+    .groups = "drop"
+  ) |>
+  mutate(across(where(is.numeric), ~ round(.x, 3)))
+
+trial_typicality <- trial_side |>
+  select(trial_id, category_pair, side, side_typicality) |>
+  group_by(trial_id, category_pair, side) |>
+  summarise(side_typicality = mean(side_typicality, na.rm = TRUE), .groups = "drop") |>
+  tidyr::pivot_wider(
+    id_cols = c(trial_id, category_pair),
+    names_from = side,
+    values_from = side_typicality
+  ) |>
+  mutate(
+    left = as.numeric(left),
+    right = as.numeric(right),
+    typicality_diff_right_minus_left = right - left,
+    typicality_mean = (left + right) / 2
+  )
+
+blend_type_typicality_summary <- trial_typicality |>
+  group_by(category_pair) |>
+  summarise(
+    n_trials = n(),
+    mean_left_typicality = mean(left, na.rm = TRUE),
+    mean_right_typicality = mean(right, na.rm = TRUE),
+    mean_typicality_diff_right_minus_left = mean(typicality_diff_right_minus_left, na.rm = TRUE),
+    sd_typicality_diff_right_minus_left = sd(typicality_diff_right_minus_left, na.rm = TRUE),
+    mean_typicality = mean(typicality_mean, na.rm = TRUE),
+    .groups = "drop"
+  ) |>
+  mutate(across(where(is.numeric), ~ round(.x, 3)))
+
+typicality_anova_tidy <- broom::tidy(aov(typicality_mean ~ category_pair, data = trial_typicality))
+typicality_diff_anova_tidy <- broom::tidy(aov(typicality_diff_right_minus_left ~ category_pair, data = trial_typicality))
+
+overall_summary <- tibble(
+  metric = c(
+    "Observed version A trials",
+    "Trial-side rows",
+    "Feature layers summarized",
+    "Typicality source",
+    "Similarity measures"
+  ),
+  value = c(
+    n_distinct(trial_side$trial_id),
+    nrow(trial_side),
+    paste(sort(unique(trial_side$layer)), collapse = ", "),
+    "ChatGPT image typicality means from image_manifest_chatgpt_typicality.csv",
+    "Cosine similarity and Euclidean distance between the blend and each side image"
+  )
+)
+```
+
+## Overview
+
+This report links ChatGPT-estimated image typicality from [image_manifest_chatgpt_typicality.csv](`r typicality_path`) to blend-to-side deep-feature similarity from the Places365 AlexNet features in [version_A_places365_alexnet](`r feature_dir`).
+
+Each row in the analysis is one `trial x side x layer` combination. For each row, the report uses:
+
+- the side image typicality estimate
+- the cosine similarity between the blend and that side image
+- the L2 distance between the blend and that side image
+- the blend type (`category_pair`)
+
+```{r}
+kable(overall_summary, col.names = c("Metric", "Value"))
+```
+
+## Layer Summary
+
+```{r}
+kable(layer_summary, col.names = c("Layer", "Trial-Sides", "Cor: typicality vs cosine", "Cor: typicality vs L2", "Cosine model R2", "L2 model R2"))
+```
+
+## By Blend Type Summary
+
+```{r}
+kable(pair_summary, col.names = c("Layer", "Blend Type", "Trial-Sides", "Cor: typicality vs cosine", "Cor: typicality vs L2", "Cosine model R2", "L2 model R2", "Mean Typicality", "Mean Cosine", "Mean L2"))
+```
+
+## Typicality Differences by Blend Type
+
+This section asks whether the side images paired with a blend differ in typicality depending on blend type, and whether the right-minus-left typicality imbalance differs across blend types.
+
+```{r}
+kable(blend_type_typicality_summary, col.names = c("Blend Type", "Trials", "Mean Left Typicality", "Mean Right Typicality", "Mean Right-Left Typicality Diff", "SD Right-Left Typicality Diff", "Mean Typicality"))
+```
+
+```{r}
+kable(typicality_anova_tidy)
+```
+
+```{r}
+kable(typicality_diff_anova_tidy)
+```
+
+## Typicality Level by Blend Type
+
+```{r, fig.width=10, fig.height=4.8}
+ggplot(trial_typicality, aes(x = category_pair, y = typicality_mean, fill = category_pair)) +
+  geom_boxplot(alpha = 0.8, width = 0.7, show.legend = FALSE) +
+  geom_jitter(width = 0.12, alpha = 0.7, size = 1.8, show.legend = FALSE) +
+  labs(
+    x = "Blend type",
+    y = "Mean side-image typicality",
+    title = "Typicality level by blend type"
+  ) +
+  theme_minimal(base_size = 11)
+```
+
+## Left-Right Typicality Imbalance by Blend Type
+
+```{r, fig.width=10, fig.height=4.8}
+ggplot(trial_typicality, aes(x = category_pair, y = typicality_diff_right_minus_left, fill = category_pair)) +
+  geom_hline(yintercept = 0, linewidth = 0.3, color = "grey70") +
+  geom_boxplot(alpha = 0.8, width = 0.7, show.legend = FALSE) +
+  geom_jitter(width = 0.12, alpha = 0.7, size = 1.8, show.legend = FALSE) +
+  labs(
+    x = "Blend type",
+    y = "Right minus left typicality",
+    title = "Left-right typicality imbalance by blend type"
+  ) +
+  theme_minimal(base_size = 11)
+```
+
+## Cosine Similarity vs Typicality
+
+```{r, fig.width=8, fig.height=4.8}
+ggplot(trial_side, aes(x = side_typicality, y = cosine_similarity, color = layer)) +
+  geom_point(size = 2, alpha = 0.8) +
+  geom_smooth(method = "lm", se = FALSE, linewidth = 0.8) +
+  labs(
+    x = "ChatGPT-estimated side-image typicality",
+    y = "Blend-to-side cosine similarity",
+    title = "Typicality and cosine similarity across layers"
+  ) +
+  theme_minimal(base_size = 11)
+```
+
+## L2 Distance vs Typicality
+
+```{r, fig.width=8, fig.height=4.8}
+ggplot(trial_side, aes(x = side_typicality, y = l2_distance, color = layer)) +
+  geom_point(size = 2, alpha = 0.8) +
+  geom_smooth(method = "lm", se = FALSE, linewidth = 0.8) +
+  labs(
+    x = "ChatGPT-estimated side-image typicality",
+    y = "Blend-to-side L2 distance",
+    title = "Typicality and L2 distance across layers"
+  ) +
+  theme_minimal(base_size = 11)
+```
+
+## Cosine by Blend Type
+
+```{r, fig.width=12, fig.height=7}
+ggplot(trial_side, aes(x = side_typicality, y = cosine_similarity, color = side)) +
+  geom_point(size = 2, alpha = 0.85) +
+  geom_smooth(method = "lm", se = FALSE, linewidth = 0.8) +
+  facet_grid(category_pair ~ layer, scales = "free") +
+  labs(
+    x = "ChatGPT-estimated side-image typicality",
+    y = "Blend-to-side cosine similarity",
+    title = "Typicality and cosine similarity split by blend type and layer"
+  ) +
+  theme_minimal(base_size = 10)
+```
+
+## L2 by Blend Type
+
+```{r, fig.width=12, fig.height=7}
+ggplot(trial_side, aes(x = side_typicality, y = l2_distance, color = side)) +
+  geom_point(size = 2, alpha = 0.85) +
+  geom_smooth(method = "lm", se = FALSE, linewidth = 0.8) +
+  facet_grid(category_pair ~ layer, scales = "free") +
+  labs(
+    x = "ChatGPT-estimated side-image typicality",
+    y = "Blend-to-side L2 distance",
+    title = "Typicality and L2 distance split by blend type and layer"
+  ) +
+  theme_minimal(base_size = 10)
+```
+
+## Trial-Side Table
+
+```{r}
+trial_table <- trial_side |>
+  select(layer, category_pair, trial_id, side, blend_image, side_image, side_typicality, cosine_similarity, l2_distance, side_typicality_sd) |>
+  mutate(across(where(is.numeric), ~ round(.x, 4)))
+
+kable(trial_table)
+```

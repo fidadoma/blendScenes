@@ -1,0 +1,347 @@
+---
+title: "blendScenes Deep Features Report"
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    code-fold: true
+    theme: cosmo
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library(knitr)
+library(readr)
+library(readxl)
+library(tidyr)
+
+workbook_path <- "../data/formr_downloads/blendScenes_prolific_A/results_version_A_long_with_images_and_paths.xlsx"
+feature_dir <- "../data/deep_features/version_A_places365_alexnet"
+blends_path <- "../data/Blends.xlsx"
+
+normalize_image_id <- function(x) {
+  x <- as.character(x)
+  x <- sub("\\.[A-Za-z0-9]+$", "", x)
+  trimws(x)
+}
+
+results_long <- read_excel(workbook_path, sheet = "long_results")
+blends_raw <- read_excel(blends_path)
+
+results_long <- results_long |>
+  filter(trial_type == "trial") |>
+  mutate(
+    rating = as.numeric(rating),
+    blend_image_id = normalize_image_id(blend_image),
+    left_image_id = normalize_image_id(left_image),
+    right_image_id = normalize_image_id(right_image),
+    behavior_right = (rating - 1) / 99,
+    behavior_left = 1 - behavior_right
+  )
+
+behavior_trial <- results_long |>
+  group_by(trial_id, blend_image, left_image, right_image, blend_image_id, left_image_id, right_image_id) |>
+  summarise(
+    n_ratings = sum(!is.na(rating)),
+    mean_rating = mean(rating, na.rm = TRUE),
+    mean_right = mean(behavior_right, na.rm = TRUE),
+    mean_left = mean(behavior_left, na.rm = TRUE),
+    .groups = "drop"
+  ) |>
+  mutate(behavior_diff_right_minus_left = mean_right - mean_left)
+
+blend_lookup <- blends_raw |>
+  transmute(
+    trial_id = as.integer(id_blendu),
+    category1 = as.character(category1),
+    category2 = as.character(category2),
+    category_pair = paste0(category1, "-", category2)
+  )
+
+cosine_pair <- function(a, b) {
+  denom <- sqrt(sum(a * a)) * sqrt(sum(b * b))
+  if (is.na(denom) || denom == 0) {
+    return(NA_real_)
+  }
+  sum(a * b) / denom
+}
+
+l2_pair <- function(a, b) {
+  sqrt(sum((a - b) ^ 2))
+}
+
+feature_files <- c("conv3_features.csv", "conv5_features.csv", "fc6_features.csv", "fc7_features.csv")
+
+feature_trial_list <- lapply(feature_files, function(file_name) {
+  layer_name <- sub("_features\\.csv$", "", basename(file_name))
+  feature_df <- read_csv(file.path(feature_dir, file_name), show_col_types = FALSE)
+  feature_df <- feature_df |>
+    mutate(image_id = normalize_image_id(image_name))
+
+  feature_mat <- feature_df |>
+    select(-image_name, -image_id) |>
+    as.matrix()
+  rownames(feature_mat) <- feature_df$image_id
+
+  trial_sim <- behavior_trial |>
+    rowwise() |>
+    mutate(
+      layer = layer_name,
+      sim_blend_left = cosine_pair(feature_mat[blend_image_id, ], feature_mat[left_image_id, ]),
+      sim_blend_right = cosine_pair(feature_mat[blend_image_id, ], feature_mat[right_image_id, ]),
+      l2_blend_left = l2_pair(feature_mat[blend_image_id, ], feature_mat[left_image_id, ]),
+      l2_blend_right = l2_pair(feature_mat[blend_image_id, ], feature_mat[right_image_id, ])
+    ) |>
+    ungroup() |>
+    mutate(
+      sim_diff_right_minus_left = sim_blend_right - sim_blend_left,
+      sim_sum = sim_blend_right + sim_blend_left,
+      l2_diff_right_minus_left = l2_blend_right - l2_blend_left
+    )
+
+  trial_sim
+})
+
+feature_trial <- bind_rows(feature_trial_list) |>
+  left_join(blend_lookup, by = "trial_id")
+
+layer_summary <- feature_trial |>
+  group_by(layer) |>
+  summarise(
+    n_trials = n(),
+    cor_cosine_diff_behavior = cor(sim_diff_right_minus_left, behavior_diff_right_minus_left, use = "complete.obs"),
+    cor_l2_diff_behavior = cor(l2_diff_right_minus_left, behavior_diff_right_minus_left, use = "complete.obs"),
+    cor_right_cosine_mean_right = cor(sim_blend_right, mean_right, use = "complete.obs"),
+    cor_left_cosine_mean_left = cor(sim_blend_left, mean_left, use = "complete.obs"),
+    cor_right_l2_mean_right = cor(l2_blend_right, mean_right, use = "complete.obs"),
+    cor_left_l2_mean_left = cor(l2_blend_left, mean_left, use = "complete.obs"),
+    cosine_lm_r2 = summary(lm(behavior_diff_right_minus_left ~ sim_diff_right_minus_left))$r.squared,
+    l2_lm_r2 = summary(lm(behavior_diff_right_minus_left ~ l2_diff_right_minus_left))$r.squared,
+    .groups = "drop"
+  ) |>
+  mutate(across(where(is.numeric), ~ round(.x, 3)))
+
+overall_summary <- tibble(
+  metric = c(
+    "Observed version A trials",
+    "Participants per trial",
+    "Feature layers summarized",
+    "Behavior measure",
+    "Cosine measure",
+    "L2 measure"
+  ),
+  value = c(
+    n_distinct(feature_trial$trial_id),
+    paste(range(behavior_trial$n_ratings), collapse = "-"),
+    paste(sort(unique(feature_trial$layer)), collapse = ", "),
+    "Mean slider mapped to right preference: (rating - 1) / 99",
+    "Cosine similarity between blend and left/right image feature vectors",
+    "Euclidean distance between blend and left/right image feature vectors"
+  )
+)
+```
+
+## Overview
+
+This report links behavioral judgments from [results_version_A_long_with_images_and_paths.xlsx](`r workbook_path`) to deep-feature similarity from the Places365 AlexNet feature exports in [version_A_places365_alexnet](`r feature_dir`).
+
+For each trial, the report computes:
+
+- `sim_blend_left`: cosine similarity between the blend image and the left image
+- `sim_blend_right`: cosine similarity between the blend image and the right image
+- `sim_diff_right_minus_left`: right similarity minus left similarity
+- `l2_blend_left`: Euclidean distance between the blend image and the left image
+- `l2_blend_right`: Euclidean distance between the blend image and the right image
+- `l2_diff_right_minus_left`: right distance minus left distance
+- `behavior_diff_right_minus_left`: average behavioral pull to the right minus left, derived from the slider
+
+```{r}
+kable(overall_summary, col.names = c("Metric", "Value"))
+```
+
+## Layer Summary
+
+```{r}
+kable(layer_summary, col.names = c("Layer", "Trials", "Cor: cosine diff vs behavior diff", "Cor: L2 diff vs behavior diff", "Cor: right cosine vs mean right", "Cor: left cosine vs mean left", "Cor: right L2 vs mean right", "Cor: left L2 vs mean left", "Cosine model R2", "L2 model R2"))
+```
+
+## Trial-Level Table
+
+```{r}
+trial_table <- feature_trial |>
+  select(layer, trial_id, category_pair, blend_image, left_image, right_image, n_ratings, mean_rating, mean_left, mean_right, sim_blend_left, sim_blend_right, sim_diff_right_minus_left, l2_blend_left, l2_blend_right, l2_diff_right_minus_left, behavior_diff_right_minus_left) |>
+  mutate(across(where(is.numeric), ~ round(.x, 4)))
+
+kable(trial_table)
+```
+
+## Cosine Similarity vs Behavior
+
+```{r, fig.width=8, fig.height=4.8}
+ggplot(feature_trial, aes(x = sim_diff_right_minus_left, y = behavior_diff_right_minus_left, color = layer)) +
+  geom_hline(yintercept = 0, linewidth = 0.3, color = "grey70") +
+  geom_vline(xintercept = 0, linewidth = 0.3, color = "grey70") +
+  geom_point(size = 2, alpha = 0.8) +
+  geom_smooth(method = "lm", se = FALSE, linewidth = 0.8) +
+  labs(
+    x = "Feature similarity difference: right minus left",
+    y = "Behavioral preference difference: right minus left",
+    title = "Trial-level relation between feature similarity and behavioral choice"
+  ) +
+  theme_minimal(base_size = 11)
+```
+
+## Cosine By Layer
+
+```{r, fig.width=10, fig.height=4.8}
+ggplot(feature_trial, aes(x = sim_diff_right_minus_left, y = behavior_diff_right_minus_left)) +
+  geom_hline(yintercept = 0, linewidth = 0.3, color = "grey70") +
+  geom_vline(xintercept = 0, linewidth = 0.3, color = "grey70") +
+  geom_point(size = 2, alpha = 0.8, color = "#2C7FB8") +
+  geom_smooth(method = "lm", se = FALSE, linewidth = 0.8, color = "#D95F0E") +
+  facet_wrap(~ layer, scales = "free_x") +
+  labs(
+    x = "Feature similarity difference: right minus left",
+    y = "Behavioral preference difference: right minus left",
+    title = "Relation split by feature layer"
+  ) +
+  theme_minimal(base_size = 11)
+```
+
+## Cosine Left and Right Separately
+
+```{r, fig.width=10, fig.height=4.8}
+plot_df <- feature_trial |>
+  select(layer, trial_id, mean_left, mean_right, sim_blend_left, sim_blend_right) |>
+  pivot_longer(
+    cols = c(mean_left, mean_right, sim_blend_left, sim_blend_right),
+    names_to = c(".value", "side"),
+    names_pattern = "(mean|sim_blend)_(left|right)"
+  )
+
+ggplot(plot_df, aes(x = sim_blend, y = mean, color = side)) +
+  geom_point(size = 2, alpha = 0.8) +
+  geom_smooth(method = "lm", se = FALSE, linewidth = 0.8) +
+  facet_wrap(~ layer) +
+  labs(
+    x = "Blend-to-side cosine similarity",
+    y = "Average behavioral preference for that side",
+    title = "Side-specific similarity and side-specific behavioral preference"
+  ) +
+  theme_minimal(base_size = 11)
+```
+
+## L2 Distance vs Behavior
+
+```{r, fig.width=8, fig.height=4.8}
+ggplot(feature_trial, aes(x = l2_diff_right_minus_left, y = behavior_diff_right_minus_left, color = layer)) +
+  geom_hline(yintercept = 0, linewidth = 0.3, color = "grey70") +
+  geom_vline(xintercept = 0, linewidth = 0.3, color = "grey70") +
+  geom_point(size = 2, alpha = 0.8) +
+  geom_smooth(method = "lm", se = FALSE, linewidth = 0.8) +
+  labs(
+    x = "Feature L2 distance difference: right minus left",
+    y = "Behavioral preference difference: right minus left",
+    title = "Trial-level relation between L2 distance and behavioral choice"
+  ) +
+  theme_minimal(base_size = 11)
+```
+
+## L2 By Layer
+
+```{r, fig.width=10, fig.height=4.8}
+ggplot(feature_trial, aes(x = l2_diff_right_minus_left, y = behavior_diff_right_minus_left)) +
+  geom_hline(yintercept = 0, linewidth = 0.3, color = "grey70") +
+  geom_vline(xintercept = 0, linewidth = 0.3, color = "grey70") +
+  geom_point(size = 2, alpha = 0.8, color = "#2C7FB8") +
+  geom_smooth(method = "lm", se = FALSE, linewidth = 0.8, color = "#D95F0E") +
+  facet_wrap(~ layer, scales = "free_x") +
+  labs(
+    x = "Feature L2 distance difference: right minus left",
+    y = "Behavioral preference difference: right minus left",
+    title = "Relation split by feature layer using L2 distance"
+  ) +
+  theme_minimal(base_size = 11)
+```
+
+## L2 Left and Right Separately
+
+```{r, fig.width=10, fig.height=4.8}
+l2_plot_df <- feature_trial |>
+  select(layer, trial_id, mean_left, mean_right, l2_blend_left, l2_blend_right) |>
+  pivot_longer(
+    cols = c(mean_left, mean_right, l2_blend_left, l2_blend_right),
+    names_to = c(".value", "side"),
+    names_pattern = "(mean|l2_blend)_(left|right)"
+  )
+
+ggplot(l2_plot_df, aes(x = l2_blend, y = mean, color = side)) +
+  geom_point(size = 2, alpha = 0.8) +
+  geom_smooth(method = "lm", se = FALSE, linewidth = 0.8) +
+  facet_wrap(~ layer, scales = "free_x") +
+  labs(
+    x = "Blend-to-side Euclidean distance",
+    y = "Average behavioral preference for that side",
+    title = "Side-specific L2 distance and side-specific behavioral preference"
+  ) +
+  theme_minimal(base_size = 11)
+```
+
+## By Blend Type
+
+```{r}
+pair_summary <- feature_trial |>
+  group_by(layer, category_pair) |>
+  summarise(
+    n_trials = n(),
+    cor_cosine_diff_behavior = cor(sim_diff_right_minus_left, behavior_diff_right_minus_left, use = "complete.obs"),
+    cor_l2_diff_behavior = cor(l2_diff_right_minus_left, behavior_diff_right_minus_left, use = "complete.obs"),
+    cosine_lm_r2 = summary(lm(behavior_diff_right_minus_left ~ sim_diff_right_minus_left))$r.squared,
+    l2_lm_r2 = summary(lm(behavior_diff_right_minus_left ~ l2_diff_right_minus_left))$r.squared,
+    .groups = "drop"
+  ) |>
+  mutate(across(where(is.numeric), ~ round(.x, 3)))
+
+kable(pair_summary, col.names = c("Layer", "Blend Type", "Trials", "Cor: cosine diff vs behavior diff", "Cor: L2 diff vs behavior diff", "Cosine model R2", "L2 model R2"))
+```
+
+## Cosine by Blend Type
+
+```{r, fig.width=12, fig.height=7}
+ggplot(feature_trial, aes(x = sim_diff_right_minus_left, y = behavior_diff_right_minus_left, color = category_pair)) +
+  geom_hline(yintercept = 0, linewidth = 0.3, color = "grey70") +
+  geom_vline(xintercept = 0, linewidth = 0.3, color = "grey70") +
+  geom_point(size = 2, alpha = 0.85) +
+  geom_smooth(method = "lm", se = FALSE, linewidth = 0.8) +
+  facet_grid(category_pair ~ layer, scales = "free") +
+  labs(
+    x = "Feature similarity difference: right minus left",
+    y = "Behavioral preference difference: right minus left",
+    title = "Cosine similarity and behavior split by blend type and layer"
+  ) +
+  theme_minimal(base_size = 10) +
+  theme(legend.position = "none")
+```
+
+## L2 by Blend Type
+
+```{r, fig.width=12, fig.height=7}
+ggplot(feature_trial, aes(x = l2_diff_right_minus_left, y = behavior_diff_right_minus_left, color = category_pair)) +
+  geom_hline(yintercept = 0, linewidth = 0.3, color = "grey70") +
+  geom_vline(xintercept = 0, linewidth = 0.3, color = "grey70") +
+  geom_point(size = 2, alpha = 0.85) +
+  geom_smooth(method = "lm", se = FALSE, linewidth = 0.8) +
+  facet_grid(category_pair ~ layer, scales = "free") +
+  labs(
+    x = "Feature L2 distance difference: right minus left",
+    y = "Behavioral preference difference: right minus left",
+    title = "L2 distance and behavior split by blend type and layer"
+  ) +
+  theme_minimal(base_size = 10) +
+  theme(legend.position = "none")
+```
